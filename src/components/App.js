@@ -12,8 +12,8 @@ class App extends Component {
 
     this.state = {
       posts: [],
-      text: 'I wrote this but it is hard coded',
-      date: 'when did this happen?'
+      text: 'testtext',
+      date: 'testdate'
 
     };
 
@@ -25,17 +25,16 @@ class App extends Component {
   componentDidMount() {
     axios.get('https://practiceapi.devmountain.com/api/posts')
     .then((response) => {
-      console.log(response.data);
+      //console.log(response.data);
       this.setState({ posts: response.data })
     })
   }
 
   updatePost(id, text) {
-    axios.put('https://practiceapi.devmountain.com/api/posts')
+    axios.put(`https://practiceapi.devmountain.com/api/posts?id=${id}`, { text})
     .then ((response) => {
-      console.log(response);
-
-    } )
+      this.setState({ posts: response.data })
+    } );
   }
 
   deletePost() {
@@ -48,6 +47,7 @@ class App extends Component {
 
   render() {
     const { posts } = this.state;
+    //console.log(posts);
 
     return (
       <div className="App__parent">
@@ -58,7 +58,7 @@ class App extends Component {
           <Compose />
           {
           posts.map( post => (
-            <Post key={ post.id } text={this.text} date={this.date}/>
+            <Post key={ post.id } text={post.text} date={post.date} />
           ))
           }
           

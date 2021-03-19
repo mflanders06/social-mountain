@@ -55,6 +55,7 @@ export default class Post extends Component {
       // const showMasterMenu = this.state.showMasterMenu
     const { editing, showMasterMenu } = this.state;
     const { text, date } = this.props;
+    //console.log(this.props.text);
     //console.log(text, date);
     return (
       // Main body of post
