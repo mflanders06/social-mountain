@@ -37,8 +37,11 @@ class App extends Component {
     } );
   }
 
-  deletePost() {
-
+  deletePost(id) {
+    axios.delete(`https://practiceapi.devmountain.com/api/posts?id=${id}`)
+    .then (( response ) => {
+      this.setState({ posts: response.data })
+    } );
   }
 
   createPost() {
@@ -58,7 +61,12 @@ class App extends Component {
           <Compose />
           {
           posts.map( post => (
-            <Post key={ post.id } text={post.text} date={post.date} />
+            <Post key={ post.id }
+                  text={post.text}
+                  date={post.date} 
+                  id={post.id}
+                  updatePostFn= {this.updatePost}
+                  deletePostFn= {this.deletePost} />
           ))
           }
           
